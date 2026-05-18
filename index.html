@@ -73,8 +73,8 @@
     }
     .title{margin:0 0 6px; font-size:clamp(28px,4.5vw,50px); color:#8a2049; text-align:center}
     .mini{margin:0 0 24px; text-align:center; color:#7a4a63; font-style:italic}
-    .text{white-space:pre-wrap; line-height:1.92; font-size:17px; letter-spacing:.1px; overflow:visible}
-    .sig{margin-top:26px; text-align:right; font-style:italic; font-weight:800; color:#6d2f52}
+    .text{white-space:pre-wrap; line-height:1.92; font-size:17px; letter-spacing:.1px; overflow:visible; user-select:text; -webkit-user-select:text; cursor:text;}
+    .sig{margin-top:26px; text-align:right; font-style:italic; font-weight:800; color:#6d2f52; user-select:text; -webkit-user-select:text; cursor:text;}
     .shine{position:absolute; inset:-40% -20%; background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%); transform:rotate(8deg); animation:shine 7s ease-in-out infinite}
     @keyframes shine{0%,100%{translate:-18% 0} 50%{translate:18% 0}}
     .footer-note{margin-top:18px; text-align:center; font-size:13px; opacity:.65}
@@ -82,6 +82,7 @@
 </head>
 <body>
   <div class="float" id="float"></div>
+  <canvas id="confetti" style="position:fixed;inset:0;pointer-events:none;z-index:9"></canvas>
   <main class="shell">
     <section class="panel" id="gate">
       <div class="hero">
@@ -142,6 +143,10 @@ Nicolás Farías, der König der 1314.</div>
     const letter = document.getElementById('letter');
     const pwd = document.getElementById('pwd');
     const error = document.getElementById('error');
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+    
     document.getElementById('btn').addEventListener('click', openLetter);
     pwd.addEventListener('keydown', e => { if(e.key === 'Enter') openLetter(); });
 
@@ -150,10 +155,55 @@ Nicolás Farías, der König der 1314.</div>
         gate.style.display = 'none';
         letter.classList.add('open');
         startHearts();
+        burstConfetti();
       } else {
         error.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
       }
     }
+
+    function resizeCanvas(){
+      canvas.width = window.innerWidth * devicePixelRatio;
+      canvas.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+
+    function burstConfetti(){
+      resizeCanvas();
+      const colors = ['#ff7aa8','#ffd166','#7a5cff','#67e8f9','#ffffff'];
+      pieces = [];
+      for(let i=0;i<220;i++) pieces.push({
+        x: window.innerWidth/2 + (Math.random()*140 - 70),
+        y: window.innerHeight*0.25 + (Math.random()*60 - 30),
+        vx: (Math.random()*8 - 4),
+        vy: (Math.random()*-10 - 8),
+        g: 0.18 + Math.random()*0.12,
+        r: 3 + Math.random()*5,
+        rot: Math.random()*Math.PI,
+        vr: Math.random()*0.2 - 0.1,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        life: 140 + Math.random()*60
+      });
+      let frame = 0;
+      const tick = () => {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p => {
+          p.x += p.vx; p.y += p.vy; p.vy += p.g; p.rot += p.vr; p.life -= 1;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.r, -p.r/2, p.r*1.8, p.r);
+          ctx.restore();
+        });
+        pieces = pieces.filter(p => p.life > 0 && p.y < window.innerHeight + 40);
+        frame++;
+        if(frame < 240 && pieces.length) requestAnimationFrame(tick); else ctx.clearRect(0,0,canvas.width,canvas.height);
+      };
+      tick();
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
     function startHearts(){
       const wrap = document.getElementById('float');
