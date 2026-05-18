@@ -77,6 +77,12 @@
     .sig{margin-top:26px; text-align:right; font-style:italic; font-weight:800; color:#6d2f52; user-select:text; -webkit-user-select:text; cursor:text;}
     .shine{position:absolute; inset:-40% -20%; background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%); transform:rotate(8deg); animation:shine 7s ease-in-out infinite}
     @keyframes shine{0%,100%{translate:-18% 0} 50%{translate:18% 0}}
+    .nav-tabs{display:flex; gap:12px; justify-content:center; margin-top:28px; padding:0 18px; flex-wrap:wrap}
+    .nav-tab{padding:10px 18px; border-radius:18px; border:1px solid rgba(201,77,130,.3); background:rgba(255,255,255,.6); cursor:pointer; font-weight:600; font-size:14px; transition:all .2s ease; color:var(--ink)}
+    .nav-tab.active{background:linear-gradient(135deg, #ff83b4, #c94d82 55%, #7a5cff); color:white; border-color:transparent}
+    .nav-tab:hover{transform:translateY(-1px); border-color:rgba(201,77,130,.6)}
+    .section{display:none}
+    .section.active{display:block}
   </style>
 </head>
 <body>
@@ -127,6 +133,28 @@ To wrap up, I know that sometimes you're afraid of not being chosen, of people b
 P.S.: Der eigentliche Grund, warum das hier eine Datei statt eines Briefes auf Papier ist, ist meine kleine Rache dafür, dass du die Widmung im Manga versteckt hast und ich sie nicht finden konnte. Und falls der Brief ein bisschen zusammenhanglos wirkt, dann bitte ich dafür um Entschuldigung. Ich habe einfach aufgeschrieben, was mir gerade in den Kopf kam, weil ich genau so funktioniere, wenn ich mit dir zusammen bin. Ich lasse mich treiben, und dann kommt alles einfach so heraus. Wenn du etwas an meinem Deutsch auszusetzen hast, dann versuch bitte, es zu übersehen und meinen großen Einsatz zu würdigen. Wenn es aber um den Brief selbst geht, nehme ich Kritik natürlich über die üblichen Kommunikationswege entgegen. Danke, dass du du bist. Danke, dass es dich gibt. Ich hoffe, du bekommst alles, was du dir wünschst, denn du verdienst genau das und noch viel mehr.</div>
         <div class="sig">Con amor,<br/>Nicolás Farías, der König der 1314.</div>
       </div>
+
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchSection('letter-content')">Carta</button>
+        <button class="nav-tab" onclick="switchSection('gifts-content')">Regalos</button>
+      </div>
+
+      <section id="letter-content" class="section active">
+      </section>
+
+      <section id="gifts-content" class="section">
+        <div class="paper" style="margin-top:28px;">
+          <h2 class="title">Sobre los regalos</h2>
+          <div class="text">Esta parte va en español porque ya me cansé un poco de los idiomas. Si te preguntas por los regalos, probablemente te quedes un poco desconcertada, pero quiero explicarlo, sobre todo lo de Pokémon. Quizás estés pensando: "qué le pasó a este friki de mierda", y no te voy a juzgar por eso, la verdad es que lo entendería perfectamente. Pero la Pokébola tiene una base que se ilumina, así que también sirve como mini lámpara, lo cual la hace bastante más funcional de lo que parece a primera vista. Pero más allá de eso, la elegí por una razón muy concreta. Me has comentado más de una vez que a veces sientes que nunca serás elegida, que la gente pasa y que tú quedas. Y el lema de Pokémon es "yo te elijo". Entonces quiero que cada vez que lo pienses, o simplemente cuando veas la Pokébola en algún rincón de tu cuarto por ahí tirada, recuerdes que estás equivocada, porque yo te elijo. Siempre. De cierto modo, como decías tú en tu carta, quien lea esto podría pensar que es una de las mayores demostraciones de amor que una persona puede hacer, y quizás no estaría tan equivocado. A veces las cosas más nerds son las más sinceras. 
+
+¿Por qué Snorlax? Porque le gusta comer, ama dormir, y tiene una energía muy particular que, de alguna forma, me recuerda a ti. No hace falta que lo tomes como un insulto, Snorlax es absolutamente adorable y nadie lo pone en duda. 
+
+En cuanto al libro, trata sobre una discusión acerca de lo que es el amor y de sus distintas perspectivas, lo cual ya de por sí me parece interesante. Entre ellas llegar podrían a subsumirse tanto la tuya como la mía, probablemente. Sé que quizás soy muy idealista respecto al temita del amor, y puede que en algún punto eso me juegue en contra, pero ojalá te sirva para entender un poco más otras posturas al respecto y para replantearte ciertas cosas, más allá de la obsesión del hombre de turno. No porque la tuya esté mal ni mucho menos, sino porque a veces vale la pena intentar entender a otros. 
+
+Sé que no estás leyendo mucho pero me gustaría que lo leas en el momento correcto, sea ahora o en mil años. Y las frutas, bueno, te gustan, así que ojalá las disfrutes.</div>
+            <div class="sig">Con amor,<br/>Nicolás Farías, der König der 1314.</div>
+          </div>
+      </section>
     </section>
   </main>
 
@@ -152,6 +180,13 @@ P.S.: Der eigentliche Grund, warum das hier eine Datei statt eines Briefes auf P
       } else {
         error.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
       }
+    }
+
+    function switchSection(sectionId){
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      event.target.classList.add('active');
     }
 
     function resizeCanvas(){
