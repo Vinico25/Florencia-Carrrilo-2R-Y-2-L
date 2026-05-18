@@ -125,15 +125,13 @@ In your letter, you said you had decided never to leave my side. The truth is, I
 
 To wrap up, I know that sometimes you're afraid of not being chosen, of people being just a temporary thing. I'm sorry if this doesn't help you or if I'm not the person you want to hear this from, but I will always choose you. I've told you in the voice messages, I'm writing it to you now, and if you ask me in person, I'll tell you exactly the same thing. It's unconditional. I don't expect it to be mutual or anything like that, but, for my part, I'll do it.
 
-I will always choose you.
-
 P.S.: Der eigentliche Grund, warum das hier eine Datei statt eines Briefes auf Papier ist, ist meine kleine Rache dafür, dass du die Widmung im Manga versteckt hast und ich sie nicht finden konnte. Und falls der Brief ein bisschen zusammenhanglos wirkt, dann bitte ich dafür um Entschuldigung. Ich habe einfach aufgeschrieben, was mir gerade in den Kopf kam, weil ich genau so funktioniere, wenn ich mit dir zusammen bin. Ich lasse mich treiben, und dann kommt alles einfach so heraus. Wenn du etwas an meinem Deutsch auszusetzen hast, dann versuch bitte, es zu übersehen und meinen großen Einsatz zu würdigen. Wenn es aber um den Brief selbst geht, nehme ich Kritik natürlich über die üblichen Kommunikationswege entgegen. Danke, dass du du bist. Danke, dass es dich gibt. Ich hoffe, du bekommst alles, was du dir wünschst, denn du verdienst genau das und noch viel mehr.
 
 Mit Liebe,
 Nicolás Farías, der König der 1314.</div>
         <div class="sig">Con amor,<br/>Nicolás Farías, der König der 1314.</div>
       </div>
-      <div class="footer-note">Tip: súbelo como <code>index.html</code> a GitHub Pages para obtener un link.</div>
+      <div class="footer-note"></div>
     </section>
   </main>
 
@@ -169,9 +167,9 @@ Nicolás Farías, der König der 1314.</div>
 
     function burstConfetti(){
       resizeCanvas();
-      const colors = ['#ff7aa8','#ffd166','#7a5cff','#67e8f9','#ffffff'];
+      const colors = ['#ff7aa8','#ffd166','#7a5cff','#67e8f9','#ffffff','#ff4d8d','#ff9f1c'];
       pieces = [];
-      for(let i=0;i<220;i++) pieces.push({
+      for(let i=0;i<460;i++) pieces.push({
         x: window.innerWidth/2 + (Math.random()*140 - 70),
         y: window.innerHeight*0.25 + (Math.random()*60 - 30),
         vx: (Math.random()*8 - 4),
@@ -185,6 +183,7 @@ Nicolás Farías, der König der 1314.</div>
       });
       let frame = 0;
       const tick = () => {
+        ctx.globalAlpha = 0.95;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         pieces.forEach(p => {
           p.x += p.vx; p.y += p.vy; p.vy += p.g; p.rot += p.vr; p.life -= 1;
@@ -193,11 +192,16 @@ Nicolás Farías, der König der 1314.</div>
           ctx.rotate(p.rot);
           ctx.fillStyle = p.color;
           ctx.fillRect(-p.r, -p.r/2, p.r*1.8, p.r);
+          if(Math.random() < 0.03){
+            ctx.beginPath();
+            ctx.arc(0,0,p.r*0.9,0,Math.PI*2);
+            ctx.fill();
+          }
           ctx.restore();
         });
         pieces = pieces.filter(p => p.life > 0 && p.y < window.innerHeight + 40);
         frame++;
-        if(frame < 240 && pieces.length) requestAnimationFrame(tick); else ctx.clearRect(0,0,canvas.width,canvas.height);
+        if(frame < 320 && pieces.length) requestAnimationFrame(tick); else ctx.clearRect(0,0,canvas.width,canvas.height);
       };
       tick();
     }
