@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Para Florencia</title>
+  <style>
+    :root{
+      --bg1:#f9dbe7; --bg2:#fff8fc; --bg3:#eef6ff;
+      --ink:#2d2430; --accent:#c94d82; --accent2:#7a5cff;
+      --paper:rgba(255,255,255,.84);
+      --line:rgba(201,77,130,.16);
+      --shadow:0 26px 80px rgba(44,22,44,.18);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%}
+    body{
+      min-height:100vh; display:grid; place-items:center; overflow-x:hidden; color:var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,255,255,.76), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,.55), transparent 22%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 46%, var(--bg3));
+    }
+    .float{position:fixed; inset:auto; pointer-events:none; opacity:.5}
+    .heart{position:absolute; width:18px; height:18px; transform:rotate(45deg); background:linear-gradient(135deg,#ff9fc1,#c94d82); animation: drift linear infinite}
+    .heart:before,.heart:after{content:""; position:absolute; width:18px; height:18px; border-radius:50%; background:inherit}
+    .heart:before{left:-9px; top:0}
+    .heart:after{left:0; top:-9px}
+    @keyframes drift{from{transform:translateY(110vh) rotate(45deg) scale(.8)} to{transform:translateY(-20vh) rotate(45deg) scale(1.15)}}
+    .shell{width:min(1020px, 92vw); padding:18px}
+    .panel{
+      background:var(--paper); border:1px solid rgba(255,255,255,.55); border-radius:34px;
+      box-shadow:var(--shadow); backdrop-filter: blur(12px); overflow:hidden;
+    }
+    .hero{
+      padding:40px 28px 26px; text-align:center; position:relative;
+      background:
+        radial-gradient(circle at top left, rgba(255,159,193,.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(122,92,255,.12), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.12));
+      border-bottom:1px solid var(--line);
+    }
+    .badge{
+      display:inline-block; padding:8px 14px; border-radius:999px; letter-spacing:.16em;
+      text-transform:uppercase; font-size:11px; font-weight:800; color:#8e2d5a; background:#ffe6ef;
+      box-shadow:0 8px 20px rgba(201,77,130,.12);
+    }
+    h1{margin:16px 0 8px; font-size:clamp(30px,5vw,60px); line-height:1.02; color:var(--accent)}
+    .sub{margin:0; font-size:clamp(15px,2vw,18px); opacity:.84}
+    .gate{padding:28px; display:grid; gap:14px; justify-items:center}
+    .prompt{font-size:15px; opacity:.86; text-align:center; max-width:720px}
+    .row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; width:100%}
+    input{
+      width:min(460px, 86vw); padding:16px 18px; font-size:16px; border-radius:18px; border:1px solid rgba(0,0,0,.09);
+      outline:none; background:rgba(255,255,255,.94); box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+    }
+    input:focus{border-color:rgba(201,77,130,.45); box-shadow:0 0 0 4px rgba(201,77,130,.12)}
+    button{
+      padding:16px 22px; font-size:16px; border:none; border-radius:18px; cursor:pointer; color:white; font-weight:800;
+      background:linear-gradient(135deg, #ff83b4, #c94d82 55%, #7a5cff);
+      box-shadow:0 14px 32px rgba(201,77,130,.24); transition:transform .15s ease, filter .15s ease;
+    }
+    button:hover{transform:translateY(-1px); filter:saturate(1.05)}
+    .error{min-height:24px; color:#b00020; font-weight:700}
+    .letter{display:none; padding:34px clamp(18px,4vw,48px) 42px; position:relative}
+    .letter.open{display:block; animation:fadeUp .6s ease both}
+    @keyframes fadeUp{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)}}
+    .paper{
+      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,248,252,.97));
+      border:1px solid rgba(201,77,130,.12); border-radius:28px; padding:clamp(22px,4vw,46px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8); overflow:visible;
+    }
+    .title{margin:0 0 6px; font-size:clamp(28px,4.5vw,50px); color:#8a2049; text-align:center}
+    .mini{margin:0 0 24px; text-align:center; color:#7a4a63; font-style:italic}
+    .text{white-space:pre-wrap; line-height:1.92; font-size:17px; letter-spacing:.1px; overflow:visible}
+    .sig{margin-top:26px; text-align:right; font-style:italic; font-weight:800; color:#6d2f52}
+    .shine{position:absolute; inset:-40% -20%; background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%); transform:rotate(8deg); animation:shine 7s ease-in-out infinite}
+    @keyframes shine{0%,100%{translate:-18% 0} 50%{translate:18% 0}}
+    .footer-note{margin-top:18px; text-align:center; font-size:13px; opacity:.65}
+  </style>
+</head>
+<body>
+  <div class="float" id="float"></div>
+  <main class="shell">
+    <section class="panel" id="gate">
+      <div class="hero">
+        <span class="badge">Birthday letter</span>
+        <h1>Para Florencia</h1>
+        <p class="sub">Una carta escondida detrás de una contraseña.</p>
+      </div>
+      <div class="gate">
+        <p class="prompt">Escribe la contraseña exacta para abrir la carta.</p>
+        <div class="row">
+          <input id="pwd" type="password" placeholder="Contraseña" autocomplete="off" />
+          <button id="btn">Abrir carta</button>
+        </div>
+        <div class="error" id="error"></div>
+      </div>
+    </section>
+
+    <section class="panel letter" id="letter">
+      <div class="paper">
+        <div class="shine"></div>
+        <h2 class="title">Happy birthday, Florencia.</h2>
+        <p class="mini">I will always choose you.</p>
+        <div class="text">I'm sorry I'm not writing this on paper this time around, but I wanted to try something different. I know you usually switch to English when you want to talk about more emotionally intense things. You know it's not exactly my strong suit and that I practically hate it, but I've actually come to like it thanks to your Spanglish. There might be some weird or awkward words here, but I really tried my best with my humble English dictionary, without translators or anything like that. I wanted to do this because with you I can be truly authentic, and that's something I usually struggle with a lot.
+
+I'm writing this to you today precisely because it's your birthday. And when I read the letter you wrote to me back then, I realized we have a disagreement about how all this started. You insist it began with that question, but the truth is I was just playing dumb out of sheer shyness and because of a misunderstanding with your answer. For me, that question simply doesn't exist; it was never a deciding factor. I remember perfectly well that I told you about my dogs and Superman, and that's not something I do with just anyone.
+
+From that moment on, I've really gotten to know you. I know that a lot of the time you can be unpleasant, unfriendly, annoying, angry, bossy, obsessive, hysterical, neurotic, dramatic, and a thousand other things. But the truth is, I don't care. I've always believed that the people you love most aren't loved for their good qualities, but in spite of all their bad ones; because, in the end, they aren't even bad in the eyes of the right person, because honestly, I wouldn't want you to stop being any of those things because they're a big part of who you are.
+
+And I know very well that I have my own problems too. I carry my own demons, my indecision, my negativity, and often I'm not the best company. I'm fully aware of that, and that's why I appreciate so much that you've decided to stay even when things get tough, because I know that sometimes I'm the one who complicates them. But you've always seen the best in me, even in those moments when I see absolutely nothing good.
+
+In all this time we've shared, I've loved learning things about you that aren't common knowledge. To be honest, sometimes it bothers me a little to know too much, but I guess that's just part of the deal when you get to know someone so deeply. That's why I know you often doubt yourself, your abilities, and your motivations. However, I've never doubted you even once, because if anyone is capable of doing whatever they set their mind to, it's you. You're an excellent daughter, an excellent sister, an excellent friend, an excellent confidante, in fact, excellent at everything. And even if you don't value the things you do or who you are, they impress me.
+
+Sometimes you thank me for what I do or for being there. It's not that it bothers me, but I sincerely believe you have nothing to thank me for. What you receive from me isn't even a fraction of what you truly deserve, because the truth is that nothing will ever be enough for someone who gives their all.
+
+In fact, you were the one who taught me to trust myself more. I used to think that throughout life you had to sacrifice some things to have others, but you've made me want it all and feel like I can have it all. And that's because I see it in you.
+
+I see your struggle, your effort, and your unconditional support, and that inspires me to be a better version of myself every day. That incredibly unique connection we have, which goes far beyond any label, I feel exactly the same way. Perhaps in my own way and differently, but with exactly the same intensity.
+
+In your letter, you said you had decided never to leave my side. The truth is, I can't think of any logical reason for why you decided that, but I have to admit that it comforts me greatly to know that you're there and that that's the level of our loyalty.
+
+To wrap up, I know that sometimes you're afraid of not being chosen, of people being just a temporary thing. I'm sorry if this doesn't help you or if I'm not the person you want to hear this from, but I will always choose you. I've told you in the voice messages, I'm writing it to you now, and if you ask me in person, I'll tell you exactly the same thing. It's unconditional. I don't expect it to be mutual or anything like that, but, for my part, I'll do it.
+
+I will always choose you.
+
+P.S.: Der eigentliche Grund, warum das hier eine Datei statt eines Briefes auf Papier ist, ist meine kleine Rache dafür, dass du die Widmung im Manga versteckt hast und ich sie nicht finden konnte. Und falls der Brief ein bisschen zusammenhanglos wirkt, dann bitte ich dafür um Entschuldigung. Ich habe einfach aufgeschrieben, was mir gerade in den Kopf kam, weil ich genau so funktioniere, wenn ich mit dir zusammen bin. Ich lasse mich treiben, und dann kommt alles einfach so heraus. Wenn du etwas an meinem Deutsch auszusetzen hast, dann versuch bitte, es zu übersehen und meinen großen Einsatz zu würdigen. Wenn es aber um den Brief selbst geht, nehme ich Kritik natürlich über die üblichen Kommunikationswege entgegen. Danke, dass du du bist. Danke, dass es dich gibt. Ich hoffe, du bekommst alles, was du dir wünschst, denn du verdienst genau das und noch viel mehr.
+
+Mit Liebe,
+Nicolás Farías, der König der 1314.</div>
+        <div class="sig">Con amor,<br/>Nicolás Farías, der König der 1314.</div>
+      </div>
+      <div class="footer-note">Tip: súbelo como <code>index.html</code> a GitHub Pages para obtener un link.</div>
+    </section>
+  </main>
+
+  <script>
+    const secret = 'Florencia. I will always choose you.';
+    const gate = document.getElementById('gate');
+    const letter = document.getElementById('letter');
+    const pwd = document.getElementById('pwd');
+    const error = document.getElementById('error');
+    document.getElementById('btn').addEventListener('click', openLetter);
+    pwd.addEventListener('keydown', e => { if(e.key === 'Enter') openLetter(); });
+
+    function openLetter(){
+      if(pwd.value.trim() === secret){
+        gate.style.display = 'none';
+        letter.classList.add('open');
+        startHearts();
+      } else {
+        error.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
+      }
+    }
+
+    function startHearts(){
+      const wrap = document.getElementById('float');
+      for(let i=0;i<22;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        h.style.left = Math.random()*100 + 'vw';
+        h.style.animationDuration = (8 + Math.random()*8) + 's';
+        h.style.animationDelay = (Math.random()*3) + 's';
+        h.style.opacity = (0.22 + Math.random()*0.58).toFixed(2);
+        h.style.transform = `rotate(45deg) scale(${0.7 + Math.random()*0.9})`;
+        wrap.appendChild(h);
+      }
+    }
+  </script>
+</body>
+</html>
